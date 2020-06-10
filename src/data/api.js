@@ -20,3 +20,13 @@ export const fetchTasks = async (key, userId) => {
   );
   return data;
 };
+
+export const createUser = async (name) => {
+  const { data } = await axios.post(
+    `https://arcane-waters-37558.herokuapp.com/users/`,
+    {
+      name,
+    },
+  );
+  return data;
+};

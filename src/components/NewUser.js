@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from './Button';
 import LinkButton from './LinkButton';
+import { createUser } from '../data/api';
+import { useMutation, queryCache } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 const NewUser = () => {
-  function handleSubmit(e) {
-    e.preventDefault();
+  const [userName, setUserName] = useState('');
+  const [mutate] = useMutation(createUser, {
+    onSuccess: () => {
+      queryCache.refetchQueries('users');
+    },
+  });
+  const history = useHistory();
 
-    console.log('submitting');
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!userName) {
+      return;
+    }
+
+    try {
+      await mutate(userName);
+      history.push('/users');
+    } catch (error) {
+      console.log(error.error);
+    }
   }
 
   return (
@@ -23,6 +42,8 @@ const NewUser = () => {
             id="name"
             className="form-input block w-full sm:text-sm sm:leading-5"
             placeholder="John Doe"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
       </div>
