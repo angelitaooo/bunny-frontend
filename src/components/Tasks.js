@@ -30,7 +30,7 @@ const Tasks = ({ tasks }) => {
   return (
     <ul className="mt-4">
       {data.tasks.map((task) => (
-        <li className="block flex justify-start">
+        <li key={task.id} className="block flex justify-start">
           <div className="flex items-center">
             <input
               id="remember_me"

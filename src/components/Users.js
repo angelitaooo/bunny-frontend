@@ -10,6 +10,7 @@ import EditUser from './EditUser';
 import UserInfo from './UserInfo';
 import NewTask from './NewTask';
 import Tasks from './Tasks';
+import DeleteUser from './DeleteUser';
 
 const Users = () => {
   const { status, data, error } = useQuery('users', fetchUsers);
@@ -20,11 +21,11 @@ const Users = () => {
     <React.Fragment>
       <Switch>
         <Route path="/users" exact>
-          <UsersTable users={data.user} />
+          <UsersTable users={data.users} />
         </Route>
         <Route path="/users/new">
           <NewUser />
-          <UsersTable users={data.user} />
+          <UsersTable users={data.users} />
         </Route>
         <Route path="/users/:userId" exact>
           <UserInfo />
@@ -36,8 +37,9 @@ const Users = () => {
           <Tasks tasks={fakeData.tasks} />
         </Route>
         <Route path="/users/:userId/delete">
-          <UserInfo />
-          <div>Delete users</div>
+          <UserInfo name="Angela Ordonez" taskNumber={4} />
+          <Tasks tasks={fakeData.tasks} />
+          <DeleteUser />
         </Route>
         <Route path="/users/:userId/tasks/new">
           <NewTask />
