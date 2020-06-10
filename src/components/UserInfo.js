@@ -17,7 +17,7 @@ const UserInfo = ({ name, taskNumber }) => {
   return (
     <div className="mb-3">
       <h2 className="text-3xl font-black text-gray-800">{data.user.name}</h2>
-      <LinkInline to={`/users/${userId}/edit`}>Edit {name}</LinkInline>
+      <LinkInline to={`/users/${userId}/edit`}>Edit User</LinkInline>
     </div>
   );
 };

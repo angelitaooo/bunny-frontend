@@ -27,11 +27,11 @@ const Users = () => {
           <UsersTable users={data.user} />
         </Route>
         <Route path="/users/:userId" exact>
-          <UserInfo name="Angela Ordonez" taskNumber={4} />
+          <UserInfo />
           <Tasks tasks={fakeData.tasks} />
         </Route>
         <Route path="/users/:userId/edit">
-          <UserInfo name="Angela Ordonez" taskNumber={4} />
+          <UserInfo />
           <EditUser />
           <Tasks tasks={fakeData.tasks} />
         </Route>
@@ -41,7 +41,7 @@ const Users = () => {
         </Route>
         <Route path="/users/:userId/tasks/new">
           <NewTask />
-          <UserInfo name="Angela Ordonez" taskNumber={4} />
+          <UserInfo />
           <Tasks tasks={fakeData.tasks} />
         </Route>
       </Switch>

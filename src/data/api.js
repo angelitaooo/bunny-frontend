@@ -23,7 +23,7 @@ export const fetchTasks = async (key, userId) => {
 
 export const createUser = async (name) => {
   const { data } = await axios.post(
-    `https://arcane-waters-37558.herokuapp.com/users/`,
+    `https://arcane-waters-37558.herokuapp.com/users`,
     {
       name,
     },
@@ -47,6 +47,16 @@ export const updateTask = async ({ taskName, state, userId, taskId }) => {
     {
       taskName,
       state,
+    },
+  );
+  return data;
+};
+
+export const updateUser = async ({ name, userId }) => {
+  const { data } = await axios.put(
+    `https://arcane-waters-37558.herokuapp.com/users/${userId}`,
+    {
+      name,
     },
   );
   return data;
