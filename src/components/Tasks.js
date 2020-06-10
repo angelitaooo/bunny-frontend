@@ -1,9 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
-// temporary, delete when we get the BE ready
-const fakeTasks = (tasks, userId) =>
-  tasks.filter((task) => task.userId === userId);
+import { fetchTasks } from '../data/api';
+import { useQuery } from 'react-query';
 
 const Task = ({ children, done, onClick }) => {
   const striketrough = done ? 'line-through text-gray-400' : 'text-gray-700';
@@ -26,7 +24,11 @@ const Task = ({ children, done, onClick }) => {
 
 const Tasks = ({ tasks }) => {
   const { userId } = useParams();
-  const userTasks = fakeTasks(tasks, +userId);
+  const { status, data } = useQuery(['tasks', userId], fetchTasks);
+
+  if (status !== 'success') {
+    return null;
+  }
 
   function handleClick(taskId) {
     console.log(`Clicked Task #${taskId}`);
@@ -34,13 +36,13 @@ const Tasks = ({ tasks }) => {
 
   return (
     <ul className="mt-4">
-      {userTasks.map((task) => (
+      {data.tasks.map((task) => (
         <Task
           key={task.id}
           done={task.state === 'done'}
           onClick={() => handleClick(task.id)}
         >
-          {task.description}
+          {task.taskName}
         </Task>
       ))}
     </ul>

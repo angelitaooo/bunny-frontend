@@ -13,3 +13,10 @@ export const fetchUser = async (key, userId) => {
   );
   return data;
 };
+
+export const fetchTasks = async (key, userId) => {
+  const { data } = await axios.get(
+    `https://arcane-waters-37558.herokuapp.com/users/${userId}/tasks`,
+  );
+  return data;
+};
