@@ -1,7 +1,7 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchTasks } from '../data/api';
-import { useQuery } from 'react-query';
+import { useParams, useHistory } from 'react-router-dom';
+import { fetchTasks, updateTask } from '../data/api';
+import { useQuery, useMutation, queryCache } from 'react-query';
 
 const Task = ({ children, done, onClick }) => {
   const striketrough = done ? 'line-through text-gray-400' : 'text-gray-700';
@@ -24,14 +24,26 @@ const Task = ({ children, done, onClick }) => {
 
 const Tasks = ({ tasks }) => {
   const { userId } = useParams();
+  const history = useHistory();
   const { status, data } = useQuery(['tasks', userId], fetchTasks);
+  const [mutate] = useMutation(updateTask, {
+    onSuccess: () => {
+      queryCache.refetchQueries('tasks');
+    },
+  });
 
   if (status !== 'success') {
     return null;
   }
 
-  function handleClick(taskId) {
-    console.log(`Clicked Task #${taskId}`);
+  async function handleClick({ id, taskName, state }) {
+    const newState = state === 'done' ? 'todo' : 'done';
+    try {
+      await mutate({ taskName, userId, taskId: id, state: newState });
+      history.push(`/users/${userId}`);
+    } catch (error) {
+      console.log(error.error);
+    }
   }
 
   return (
@@ -40,7 +52,7 @@ const Tasks = ({ tasks }) => {
         <Task
           key={task.id}
           done={task.state === 'done'}
-          onClick={() => handleClick(task.id)}
+          onClick={() => handleClick(task)}
         >
           {task.taskName}
         </Task>
