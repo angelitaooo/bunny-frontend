@@ -52,6 +52,10 @@ This project is a TODO Web APP, that is built with React.js and uses hooks.
 - [Tailwind](https://tailwindui.com/): Styles of the App
 - [react-query](https://github.com/tannerlinsley/react-query): It is a hook to handle async requests
 
+# Project Diagram
+
+<img src="/images/diagram.png" width=600 />
+
 # Run project locally
 
 Install the project
