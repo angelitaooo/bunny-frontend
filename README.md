@@ -5,11 +5,32 @@ This project is a TODO Web APP, that is built with React.js and uses hooks.
 ## Acceptance criteria
 
 - [x] It must have a view to list the users.
+
+<img src="/images/allusers.png" width=600 />
+
 - [x] It must have an option to update the users.
+
+<img src="/images/edituser.png" width=600 />
+
 - [x] It must have an option to delete the users.
+
+<img src="/images/deleteuser.png" width=600 />
+
 - [x] In the user's list, you must be able to select a single user and list its tasks
+
+<img src="/images/singleuser.png" width=600 />
+
 - [x] It must have an option to create tasks.
+
+<img src="/images/newtask.png" width=600 />
+
 - [x] It must have an option to update tasks.
+
+<img src="/images/edittask.png" width=600 />
+
+- [x] Creates a new user
+
+<img src="/images/newuser.png" width=600 />
 
 # Project Routes
 
@@ -24,12 +45,12 @@ This project is a TODO Web APP, that is built with React.js and uses hooks.
 
 # Dependencies
 
-- [React](https://expressjs.com/)
-- [React Router](https://github.com/typicode/lowdb): To handle the app Routing
+- [React](https://es.reactjs.org/)
+- [React Router](https://reacttraining.com/react-router/): To handle the app Routing
 - [Axios](https://github.com/axios/axios): To make requests from the browser
-- [husky](https://www.npmjs.com/package/cors): To run prettier before committing the code.
-- [Tailwind](https://www.npmjs.com/package/body-parser): Styles of the App
-- [react-query](https://www.npmjs.com/package/body-parser): It is a hook to handle async requests
+- [husky](https://www.npmjs.com/package/husky): To run prettier before committing the code.
+- [Tailwind](https://tailwindui.com/): Styles of the App
+- [react-query](https://github.com/tannerlinsley/react-query): It is a hook to handle async requests
 
 # Run project locally
 
