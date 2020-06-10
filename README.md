@@ -2,7 +2,11 @@
 
 This project is a TODO Web APP, that is built with React.js and uses hooks.
 
-## Acceptance criteria
+# Demo
+
+[Demo video](https://www.loom.com/share/5c0cfc1a7e244941bce7e5ec19c74fa9)
+
+# Acceptance criteria
 
 - [x] It must have a view to list the users.
 
@@ -66,15 +70,13 @@ Run server
 
 # Deploy
 
-I used [Now](https://devcenter.heroku.com/) to deploy the App.
-You can find the production App in this address [https://arcane-waters-37558.herokuapp.com/users/](https://arcane-waters-37558.herokuapp.com/users/).
+I used [Vercel Now](https://vercel.com/) to deploy the App.
+You can find the production App in this address [https://bunny-frontend.now.sh](https://bunny-frontend.now.sh).
 
 ## Steps I followed to deploy
 
-1. Create an account in Now
-
-<!-- loom
-Ver todos los usuarios, creando un usuario, actualizandlo y creando una tarea para ese usuario -->
+1. Create an account in Vercel
+2. I used this command to deploy the app `npx now`
 
 # What would I have done if I had more time
 
