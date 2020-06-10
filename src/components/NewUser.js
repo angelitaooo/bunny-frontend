@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Button from './Button';
-import LinkButton from './LinkButton';
-import { createUser } from '../data/api';
 import { useMutation, queryCache } from 'react-query';
 import { useHistory } from 'react-router-dom';
+import { createUser } from '../data/api';
+import Button from './Button';
+import LinkButton from './LinkButton';
 
 const NewUser = () => {
   const [userName, setUserName] = useState('');
