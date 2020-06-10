@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { fetchUser } from '../data/api';
 import { useQuery } from 'react-query';
 
-const UserInfo = ({ name, taskNumber }) => {
+const UserInfo = () => {
   const { userId } = useParams();
   const { status, data, error } = useQuery(
     userId && ['user', userId],

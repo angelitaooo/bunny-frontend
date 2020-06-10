@@ -4,7 +4,7 @@ import { fetchTasks, updateTask } from '../data/api';
 import { useQuery, useMutation, queryCache } from 'react-query';
 import Task from './Task';
 
-const Tasks = ({ tasks }) => {
+const Tasks = () => {
   const { userId } = useParams();
   const history = useHistory();
   const { status, data } = useQuery(['tasks', userId], fetchTasks);
