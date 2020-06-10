@@ -61,3 +61,10 @@ export const updateUser = async ({ name, userId }) => {
   );
   return data;
 };
+
+export const deleteUser = async ({ userId }) => {
+  const { data } = await axios.delete(
+    `https://arcane-waters-37558.herokuapp.com/users/${userId}`,
+  );
+  return data;
+};
