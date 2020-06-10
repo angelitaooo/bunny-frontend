@@ -4,7 +4,6 @@ import { fetchUsers } from '../data/api';
 import { useQuery } from 'react-query';
 //components
 import UsersTable from './UsersTable';
-import fakeData from '../data/fakeData';
 import NewUser from './NewUser';
 import EditUser from './EditUser';
 import UserInfo from './UserInfo';
@@ -29,22 +28,22 @@ const Users = () => {
         </Route>
         <Route path="/users/:userId" exact>
           <UserInfo />
-          <Tasks tasks={fakeData.tasks} />
+          <Tasks />
         </Route>
         <Route path="/users/:userId/edit">
           <UserInfo />
           <EditUser />
-          <Tasks tasks={fakeData.tasks} />
+          <Tasks />
         </Route>
         <Route path="/users/:userId/delete">
-          <UserInfo name="Angela Ordonez" taskNumber={4} />
-          <Tasks tasks={fakeData.tasks} />
+          <UserInfo />
+          <Tasks />
           <DeleteUser />
         </Route>
         <Route path="/users/:userId/tasks/new">
           <NewTask />
           <UserInfo />
-          <Tasks tasks={fakeData.tasks} />
+          <Tasks />
         </Route>
       </Switch>
     </React.Fragment>

@@ -43,6 +43,7 @@ const Tasks = ({ tasks }) => {
                   state: task.state === 'done' ? 'todo' : 'done',
                 })
               }
+              checked={task.state === 'done'}
             />
           </div>
           <Task
