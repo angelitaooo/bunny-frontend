@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from './Button';
 import LinkButton from './LinkButton';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import { useMutation, queryCache } from 'react-query';
+import { updateUser } from '../data/api';
 
 const EditUser = () => {
+  const history = useHistory();
   const { userId } = useParams();
-  function handleSubmit(e) {
+  const [userName, setUserName] = useState('');
+  const [mutate] = useMutation(updateUser, {
+    onSuccess: () => {
+      queryCache.refetchQueries('user');
+      queryCache.refetchQueries('users');
+    },
+  });
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (!userName) {
+      return;
+    }
 
-    console.log('submitting');
+    try {
+      await mutate({ name: userName, userId });
+      history.push(`/users/${userId}`);
+    } catch (error) {
+      console.log(error.error);
+    }
   }
 
   return (
@@ -25,6 +43,8 @@ const EditUser = () => {
             id="name"
             className="form-input block w-full sm:text-sm sm:leading-5"
             placeholder="John Doe"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
       </div>

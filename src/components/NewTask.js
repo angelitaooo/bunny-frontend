@@ -1,15 +1,32 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { useMutation, queryCache } from 'react-query';
+import { createTask } from '../data/api';
 import Button from './Button';
 import LinkButton from './LinkButton';
 
 const NewTask = () => {
+  const history = useHistory();
   const { userId } = useParams();
+  const [taskName, setTaskName] = useState('');
+  const [mutate] = useMutation(createTask, {
+    onSuccess: () => {
+      queryCache.refetchQueries('tasks');
+    },
+  });
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (!taskName) {
+      return;
+    }
 
-    console.log('submitting');
+    try {
+      await mutate({ taskName, userId });
+      history.push(`/users/${userId}`);
+    } catch (error) {
+      console.log(error.error);
+    }
   }
 
   return (
@@ -26,6 +43,8 @@ const NewTask = () => {
             id="task"
             className="form-input block w-full sm:text-sm sm:leading-5"
             placeholder="Complete the test"
+            value={taskName}
+            onChange={(e) => setTaskName(e.target.value)}
           />
         </div>
       </div>

@@ -1,47 +1,65 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import { fetchTasks, updateTask } from '../data/api';
+import { useQuery, useMutation, queryCache } from 'react-query';
+import Task from './Task';
 
-// temporary, delete when we get the BE ready
-const fakeTasks = (tasks, userId) =>
-  tasks.filter((task) => task.userId === userId);
-
-const Task = ({ children, done, onClick }) => {
-  const striketrough = done ? 'line-through text-gray-400' : 'text-gray-700';
-  return (
-    <li className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out border border-gray-200 cursor-pointer">
-      <button className="block min-w-full" onClick={onClick}>
-        <div className="px-4 py-4 sm:px-6">
-          <div className="flex items-center justify-between">
-            <div
-              className={`${striketrough} text-sm leading-5 font-medium truncate`}
-            >
-              {children}
-            </div>
-          </div>
-        </div>
-      </button>
-    </li>
-  );
-};
-
-const Tasks = ({ tasks }) => {
+const Tasks = () => {
   const { userId } = useParams();
-  const userTasks = fakeTasks(tasks, +userId);
+  const history = useHistory();
+  const { status, data } = useQuery(['tasks', userId], fetchTasks);
+  const [mutate] = useMutation(updateTask, {
+    onSuccess: () => {
+      queryCache.refetchQueries('tasks');
+    },
+  });
 
-  function handleClick(taskId) {
-    console.log(`Clicked Task #${taskId}`);
+  if (status !== 'success') {
+    return null;
+  }
+
+  async function handleUpdateTask({ id, taskName, state }) {
+    try {
+      await mutate({ taskName, userId, taskId: id, state });
+      history.push(`/users/${userId}`);
+    } catch (error) {
+      console.log(error.error);
+    }
   }
 
   return (
     <ul className="mt-4">
-      {userTasks.map((task) => (
-        <Task
-          key={task.id}
-          done={task.state === 'done'}
-          onClick={() => handleClick(task.id)}
-        >
-          {task.description}
-        </Task>
+      {data.tasks.map((task) => (
+        <li key={task.id} className="block flex justify-start">
+          <div className="flex items-center">
+            <input
+              id="remember_me"
+              type="checkbox"
+              className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out mr-3"
+              onChange={() =>
+                handleUpdateTask({
+                  id: task.id,
+                  taskName: task.taskName,
+                  state: task.state === 'done' ? 'todo' : 'done',
+                })
+              }
+              checked={task.state === 'done'}
+            />
+          </div>
+          <Task
+            key={task.id}
+            done={task.state === 'done'}
+            onBlur={(newTaskName) =>
+              handleUpdateTask({
+                id: task.id,
+                taskName: newTaskName,
+                state: task.state,
+              })
+            }
+          >
+            {task.taskName}
+          </Task>
+        </li>
       ))}
     </ul>
   );
