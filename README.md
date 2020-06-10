@@ -75,3 +75,11 @@ You can find the production App in this address [https://arcane-waters-37558.her
 
 <!-- loom
 Ver todos los usuarios, creando un usuario, actualizandlo y creando una tarea para ese usuario -->
+
+# What would I have done if I had more time
+
+- [ ] Error validation/handling
+- [ ] DRY some code, specially in these files:
+  - https://github.com/angelitaooo/bunny-frontend/blob/44f5d9f49a9d6285dd6329d2c6dff326ee111f0d/src/components/EditUser.js#L33-L61
+  - https://github.com/angelitaooo/bunny-frontend/blob/44f5d9f49a9d6285dd6329d2c6dff326ee111f0d/src/components/NewTask.js#L32-L61
+  - https://github.com/angelitaooo/bunny-frontend/blob/44f5d9f49a9d6285dd6329d2c6dff326ee111f0d/src/components/NewUser.js#L32-L60
